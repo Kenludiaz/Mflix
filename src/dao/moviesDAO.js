@@ -46,7 +46,7 @@ export default class MoviesDAO {
   static async getMoviesByCountry(countries) {
     /**
     Ticket: Projection
-
+    
     Write a query that matches movies with the countries in the "countries"
     list, but only returns the title and _id of each movie.
 
@@ -61,6 +61,13 @@ export default class MoviesDAO {
       // and _id. Do not put a limit in your own implementation, the limit
       // here is only included to avoid sending 46000 documents down the
       // wire.
+      const query = {
+        country: { $in: countries }
+      }
+      const projections = {
+        _id: 0,
+        title: 1
+      }
       cursor = await movies.find().limit(1)
     } catch (e) {
       console.error(`Unable to issue find command, ${e}`)
@@ -382,3 +389,6 @@ export default class MoviesDAO {
  * @property {object} runtime
  * @property {MFlixMovie[]}movies
  */
+
+
+
